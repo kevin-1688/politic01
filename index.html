@@ -1,1 +1,429 @@
 
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>民進黨執政政績集合</title>
+<style>
+  :root{
+    --green:#1b9431;
+    --green-dark:#0f6b22;
+    --green-deep:#073d14;
+    --green-soft:#e8f5ea;
+    --ink:#1a2420;
+    --muted:#5d6b63;
+    --line:#dde7df;
+    --bg:#f6faf6;
+    --white:#ffffff;
+    --accent:#f5a623;
+    --shadow:0 6px 24px rgba(15,107,34,.10);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    color:var(--ink);background:var(--bg);line-height:1.7;-webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+
+  /* ---- Nav ---- */
+  nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  nav .wrap{display:flex;align-items:center;gap:18px;height:58px;overflow-x:auto}
+  nav .brand{font-weight:800;color:var(--green-dark);white-space:nowrap;font-size:1.02rem}
+  nav .links{display:flex;gap:6px;margin-left:auto}
+  nav .links a{font-size:.86rem;color:var(--muted);text-decoration:none;padding:6px 10px;border-radius:999px;white-space:nowrap;transition:.2s}
+  nav .links a:hover{background:var(--green-soft);color:var(--green-dark)}
+
+  /* ---- Hero ---- */
+  header.hero{
+    background:linear-gradient(135deg,var(--green-deep),var(--green) 70%,var(--green-dark));
+    color:#fff;padding:64px 0 54px;position:relative;overflow:hidden;
+  }
+  header.hero::after{content:"";position:absolute;right:-120px;top:-120px;width:420px;height:420px;border-radius:50%;background:rgba(255,255,255,.06)}
+  header.hero::before{content:"";position:absolute;left:-90px;bottom:-140px;width:340px;height:340px;border-radius:50%;background:rgba(255,255,255,.05)}
+  .hero .eyebrow{display:inline-block;font-size:.82rem;letter-spacing:.18em;background:rgba(255,255,255,.16);padding:6px 14px;border-radius:999px;margin-bottom:18px}
+  .hero h1{font-size:2.6rem;line-height:1.2;font-weight:900;margin-bottom:14px;letter-spacing:.01em}
+  .hero p.sub{font-size:1.08rem;max-width:680px;color:rgba(255,255,255,.92)}
+  .hero .era{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+  .hero .era span{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.25);padding:7px 14px;border-radius:10px;font-size:.92rem}
+
+  /* ---- Stat strip ---- */
+  .stats{margin-top:-34px;position:relative;z-index:5}
+  .stats .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+  .stat{background:var(--white);border-radius:16px;padding:22px 18px;box-shadow:var(--shadow);border:1px solid var(--line);text-align:center}
+  .stat .num{font-size:1.9rem;font-weight:900;color:var(--green-dark);line-height:1.1}
+  .stat .num small{font-size:.95rem;font-weight:700}
+  .stat .lab{font-size:.86rem;color:var(--muted);margin-top:6px}
+
+  /* ---- Sections ---- */
+  section.block{padding:46px 0 8px}
+  .sec-head{display:flex;align-items:center;gap:14px;margin-bottom:22px}
+  .sec-head .ico{width:46px;height:46px;border-radius:12px;background:var(--green-soft);display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex:none}
+  .sec-head h2{font-size:1.5rem;font-weight:850;color:var(--ink)}
+  .sec-head p{font-size:.9rem;color:var(--muted)}
+
+  .cards{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+  .card{background:var(--white);border:1px solid var(--line);border-radius:14px;padding:20px 20px;box-shadow:0 2px 10px rgba(15,107,34,.05);transition:.2s}
+  .card:hover{transform:translateY(-3px);box-shadow:var(--shadow);border-color:#c4dfc9}
+  .card .big{font-size:1.55rem;font-weight:900;color:var(--green);line-height:1.15;margin-bottom:4px}
+  .card h3{font-size:1.04rem;font-weight:800;margin-bottom:6px}
+  .card p{font-size:.93rem;color:var(--muted)}
+  .card .tag{display:inline-block;font-size:.74rem;color:var(--green-dark);background:var(--green-soft);padding:3px 9px;border-radius:999px;margin-top:10px;font-weight:600}
+
+  /* ---- Timeline ---- */
+  .timeline{position:relative;margin:8px 0 0;padding-left:26px}
+  .timeline::before{content:"";position:absolute;left:7px;top:6px;bottom:6px;width:3px;background:linear-gradient(var(--green),var(--green-soft))}
+  .tl{position:relative;padding:0 0 22px 8px}
+  .tl::before{content:"";position:absolute;left:-23px;top:5px;width:14px;height:14px;border-radius:50%;background:var(--white);border:3px solid var(--green)}
+  .tl .yr{font-weight:900;color:var(--green-dark);font-size:1.02rem}
+  .tl .ev{font-size:.95rem;color:var(--ink)}
+  .tl .ev span{color:var(--muted)}
+
+  /* ---- Footer ---- */
+  .note{background:#fff8ec;border:1px solid #f3e2c0;border-left:4px solid var(--accent);border-radius:12px;padding:18px 20px;margin:40px 0 0;font-size:.9rem;color:#6b5a36}
+  footer{background:var(--green-deep);color:rgba(255,255,255,.86);margin-top:46px;padding:34px 0 40px;font-size:.84rem}
+  footer h4{color:#fff;font-size:.98rem;margin-bottom:12px}
+  footer a{color:#bfe6c6;word-break:break-all}
+  footer .src{display:grid;grid-template-columns:1fr 1fr;gap:6px 24px;margin-bottom:20px}
+  footer .disc{border-top:1px solid rgba(255,255,255,.16);padding-top:16px;color:rgba(255,255,255,.6);line-height:1.6}
+
+  @media (max-width:760px){
+    .hero h1{font-size:2rem}
+    .stats .grid{grid-template-columns:repeat(2,1fr)}
+    .cards{grid-template-columns:1fr}
+    footer .src{grid-template-columns:1fr}
+    nav .links{display:none}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <span class="brand">🟢 民進黨執政政績集合</span>
+    <div class="links">
+      <a href="#economy">經濟</a>
+      <a href="#labor">勞動</a>
+      <a href="#welfare">社福育兒</a>
+      <a href="#energy">能源建設</a>
+      <a href="#rights">人權社會</a>
+      <a href="#defense">國防</a>
+      <a href="#diplomacy">外交防疫</a>
+      <a href="#timeline">里程碑</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="eyebrow">2016 — 至今　連續執政施政成果</span>
+    <h1>民進黨執政政績集合</h1>
+    <p class="sub">彙整蔡英文（2016–2024）與賴清德（2024 起）政府在經濟、勞動、社福、能源、人權、國防與外交等面向的重要施政成果與公開數據。</p>
+    <div class="era">
+      <span>🗳️ 蔡英文　第14–15任總統</span>
+      <span>🗳️ 賴清德　第16任總統</span>
+      <span>📌 2024 達成首次同黨連續執政逾 8 年</span>
+    </div>
+  </div>
+</header>
+
+<div class="stats">
+  <div class="wrap">
+    <div class="grid">
+      <div class="stat"><div class="num">US$3.4萬<small>→4萬</small></div><div class="lab">人均 GDP 創新高<br>2024 為 33,983 美元，2026 上看 4 萬</div></div>
+      <div class="stat"><div class="num">8.63<small>%</small></div><div class="lab">2025 經濟成長率（概估）<br>創近 15 年新高，AI 出口帶動</div></div>
+      <div class="stat"><div class="num">亞洲<small>第 1</small></div><div class="lab">同性婚姻合法化<br>2019 年通過，亞洲首例</div></div>
+      <div class="stat"><div class="num">+47<small>%</small></div><div class="lab">基本工資連 10 年調升<br>月薪 2 萬→2.95 萬元</div></div>
+    </div>
+  </div>
+</div>
+
+<main class="wrap">
+
+  <!-- 經濟 -->
+  <section class="block" id="economy">
+    <div class="sec-head">
+      <div class="ico">📈</div>
+      <div><h2>經濟與產業</h2><p>半導體領軍、AI 紅利、人均所得超日趕韓</p></div>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <div class="big">8.63%</div>
+        <h3>2025 經濟成長創 15 年新高</h3>
+        <p>主計總處概估 2025 全年經濟成長率達 8.63%，第 4 季更達 12.68%（38 年單季最高），主要由 AI 與高效能運算出口需求帶動。</p>
+        <span class="tag">主計總處</span>
+      </div>
+      <div class="card">
+        <div class="big">US$33,983</div>
+        <h3>人均 GDP 續創新高</h3>
+        <p>2024 年人均 GDP 達 33,983 美元，超越日、韓；主計總處估 2026 年可望突破 4 萬美元（約 40,951 美元）。</p>
+        <span class="tag">超日趕韓</span>
+      </div>
+      <div class="card">
+        <div class="big">護國神山</div>
+        <h3>半導體成為經濟支柱</h3>
+        <p>以台積電為首的半導體供應鏈貢獻製造業逾半產值；台積電一家貢獻全國約 12% 營所稅、毛利約當 GDP 的 5%。</p>
+        <span class="tag">產業鏈</span>
+      </div>
+      <div class="card">
+        <div class="big">全球第 6</div>
+        <h3>IMD 世界競爭力名列前茅</h3>
+        <p>台灣在 IMD 世界競爭力排名居全球第 6，並連續多年在人口逾 2,000 萬的經濟體中排名第一。</p>
+        <span class="tag">國際評比</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 勞動 -->
+  <section class="block" id="labor">
+    <div class="sec-head">
+      <div class="ico">💪</div>
+      <div><h2>勞動與薪資</h2><p>基本工資連年調升、立法保障最低工資</p></div>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <div class="big">$20,008 → $29,500</div>
+        <h3>基本月薪連 10 年調升</h3>
+        <p>基本月薪自 2016 年的 20,008 元，調升至 2026 年適用的 29,500 元，十年累計漲幅約 47%。</p>
+        <span class="tag">連續 10 年</span>
+      </div>
+      <div class="card">
+        <div class="big">$120 → $196</div>
+        <h3>基本時薪大幅提高</h3>
+        <p>基本時薪由 2016 年的 120 元提升至 2026 年的 196 元，累計漲幅逾 60%，反映物價並共享經濟成果。</p>
+        <span class="tag">時薪 +63%</span>
+      </div>
+      <div class="card">
+        <div class="big">2024</div>
+        <h3>《最低工資法》正式施行</h3>
+        <p>《最低工資法》於 2024 年元旦施行，將最低工資審議法制化，2025 年起首次依法審議核定，取代過往行政裁量。</p>
+        <span class="tag">制度化</span>
+      </div>
+      <div class="card">
+        <div class="big">勞權升級</div>
+        <h3>強化職災與勞工保障</h3>
+        <p>持續推動勞工權益相關新制（如保障薪資、防職災、育兒留停彈性等），逐步擴大對勞動者的制度性保障。</p>
+        <span class="tag">勞動新制</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 社福育兒 -->
+  <section class="block" id="welfare">
+    <div class="sec-head">
+      <div class="ico">👶</div>
+      <div><h2>社會福利與育兒</h2><p>0-6 歲國家一起養、長照 2.0、邁向 0-18 歲支持</p></div>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <div class="big">$150億 → $1,400億+</div>
+        <h3>0-6 歲國家一起養</h3>
+        <p>幼托相關經費自 2016 年的 150 多億元，成長到 2026 年編列逾 1,400 億元；育兒津貼倍增至每月 5,000 元，並擴大公共化與準公共托育。</p>
+        <span class="tag">少子化對策</span>
+      </div>
+      <div class="card">
+        <div class="big">長照 2.0</div>
+        <h3>布建社區照護網</h3>
+        <p>2017 年長照 2.0 上路，強化居家式、社區式照護，並修法調整菸酒稅、遺贈稅作為穩定財源。</p>
+        <span class="tag">高齡社會</span>
+      </div>
+      <div class="card">
+        <div class="big">$5,000／月</div>
+        <h3>邁向 0-18 歲兒少成長津貼</h3>
+        <p>賴政府提出 0-18 歲每月 5,000 元成長津貼規劃，將育兒補助升級為「公共支持育兒」，把家庭支持延伸至青少年階段。</p>
+        <span class="tag">人口新戰略</span>
+      </div>
+      <div class="card">
+        <div class="big">減負擔</div>
+        <h3>教育費用補助再加碼</h3>
+        <p>高中職免學費、私立大專每學年最高補助 3.5 萬元、住宿補貼每學期 5,000–7,000 元，減輕家庭就學負擔。</p>
+        <span class="tag">教育平權</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 能源建設 -->
+  <section class="block" id="energy">
+    <div class="sec-head">
+      <div class="ico">🌱</div>
+      <div><h2>能源轉型與基礎建設</h2><p>綠能加速布建、離岸風電亮眼、前瞻建設</p></div>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <div class="big">4.6% → 11.6%</div>
+        <h3>再生能源占比倍增</h3>
+        <p>再生能源發電占比由 2018 年的 4.6% 提升至 2024 年約 11.6%，發電量 6 年間成長約 1.6 倍。</p>
+        <span class="tag">能源轉型</span>
+      </div>
+      <div class="card">
+        <div class="big">民主國家第 1</div>
+        <h3>離岸風電新增併網領先</h3>
+        <p>2024 年台灣離岸風電單年新增併網量為民主國家第一；離岸風電年增逾 68%，太陽光電持續穩定擴張。</p>
+        <span class="tag">綠電</span>
+      </div>
+      <div class="card">
+        <div class="big">約 8,900 億</div>
+        <h3>前瞻基礎建設計畫</h3>
+        <p>2017 年通過前瞻基礎建設，涵蓋綠能、數位、軌道、水環境、城鄉與少子化等面向，推動全國基礎建設更新。</p>
+        <span class="tag">8 年計畫</span>
+      </div>
+      <div class="card">
+        <div class="big">數位升級</div>
+        <h3>數位與城鄉建設並進</h3>
+        <p>透過前瞻計畫推動寬頻、智慧城鄉與軌道建設，縮短城鄉差距並強化國家數位基礎環境。</p>
+        <span class="tag">數位國家</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 人權社會 -->
+  <section class="block" id="rights">
+    <div class="sec-head">
+      <div class="ico">⚖️</div>
+      <div><h2>人權與社會進步</h2><p>婚姻平權、年金改革、轉型正義</p></div>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <div class="big">亞洲第 1</div>
+        <h3>同性婚姻合法化</h3>
+        <p>立法院 2019 年 5 月 17 日三讀通過釋字第 748 號解釋施行法，同年 5 月 24 日生效，使台灣成為亞洲第一個同婚合法化的國家。</p>
+        <span class="tag">婚姻平權</span>
+      </div>
+      <div class="card">
+        <div class="big">年金改革</div>
+        <h3>強化退休制度永續</h3>
+        <p>推動軍公教年金改革，調整給付與費率結構，目標延長退休基金的財務存續、減緩破產風險。</p>
+        <span class="tag">財政永續</span>
+      </div>
+      <div class="card">
+        <div class="big">轉型正義</div>
+        <h3>面對威權歷史</h3>
+        <p>設立促進轉型正義委員會、推動不當黨產處理與政治檔案開放，面對威權時期歷史並還原真相。</p>
+        <span class="tag">歷史正義</span>
+      </div>
+      <div class="card">
+        <div class="big">公民社會</div>
+        <h3>深化民主與多元</h3>
+        <p>持續深化公民參與、性別平權與多元文化政策，鞏固台灣作為亞洲民主指標的國際形象。</p>
+        <span class="tag">民主深化</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 國防 -->
+  <section class="block" id="defense">
+    <div class="sec-head">
+      <div class="ico">🛡️</div>
+      <div><h2>國防自主</h2><p>潛艦國造、國防預算連創新高、全民防衛</p></div>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <div class="big">海鯤號</div>
+        <h3>首艘國造潛艦</h3>
+        <p>潛艦國造原型艦「海鯤軍艦」於 2023 年 9 月 28 日命名下水（蔡英文主持），2026 年初完成首次潛航測試；後續艦計畫規劃建造 7 艘、總經費約 2,840 億元。</p>
+        <span class="tag">2025–2038</span>
+      </div>
+      <div class="card">
+        <div class="big">3.32% GDP</div>
+        <h3>國防預算連年創新高</h3>
+        <p>國防預算逐年增加，2024 年約 6,068 億元、2026 年編列約 9,495 億元，占 GDP 3.32%，創歷史新高。</p>
+        <span class="tag">史上最高</span>
+      </div>
+      <div class="card">
+        <div class="big">2030 → 5%</div>
+        <h3>持續提升國防投資</h3>
+        <p>賴政府宣示國防預算 2030 年目標達 GDP 5%，並規劃高達 400 億美元的國防特別預算案，強化嚇阻戰力。</p>
+        <span class="tag">特別預算</span>
+      </div>
+      <div class="card">
+        <div class="big">2033</div>
+        <h3>邁向全面嚇阻防衛</h3>
+        <p>提出國防產業 8 大行動，深化國防自主與全民防衛，目標 2033 年達成全面嚇阻的防衛戰力。</p>
+        <span class="tag">全民防衛</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 外交防疫 -->
+  <section class="block" id="diplomacy">
+    <div class="sec-head">
+      <div class="ico">🌏</div>
+      <div><h2>外交、防疫與國際</h2><p>世界的台灣、口罩外交、台美關係深化</p></div>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <div class="big">世界的台灣</div>
+        <h3>國際能見度大幅提升</h3>
+        <p>透過過境外交、國會外交與半導體地緣戰略地位，台灣國際能見度顯著提升，從過往悲情形象翻轉為受國際關注的民主夥伴。</p>
+        <span class="tag">國際關係</span>
+      </div>
+      <div class="card">
+        <div class="big">1,000 萬+ 片</div>
+        <h3>COVID-19 口罩外交</h3>
+        <p>2020 年疫情期間捐贈逾千萬片口罩支援他國（美國 200 萬、歐盟 700 萬、邦交國 100 萬），展現「Taiwan Can Help」。</p>
+        <span class="tag">防疫外交</span>
+      </div>
+      <div class="card">
+        <div class="big">台灣模式</div>
+        <h3>初期防疫成效受國際肯定</h3>
+        <p>疫情初期以邊境管理與口罩政策守住防線，台灣防疫經驗一度成為國際參考的「台灣模式」。</p>
+        <span class="tag">公共衛生</span>
+      </div>
+      <div class="card">
+        <div class="big">健康台灣</div>
+        <h3>健康台灣深耕計畫</h3>
+        <p>推動公費癌症篩檢涵蓋六大癌症、目標 2030 年癌症死亡率下降三分之一，並推動全民心理健康韌性計畫。</p>
+        <span class="tag">全民健康</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 里程碑 -->
+  <section class="block" id="timeline">
+    <div class="sec-head">
+      <div class="ico">📅</div>
+      <div><h2>重要里程碑</h2><p>連續執政期間的代表性時刻</p></div>
+    </div>
+    <div class="timeline">
+      <div class="tl"><div class="yr">2016</div><div class="ev">蔡英文就任總統，民進黨同時取得國會多數，啟動全面執政 <span>· 基本月薪 20,008 元起步調升</span></div></div>
+      <div class="tl"><div class="yr">2017</div><div class="ev">長照 2.0 上路、前瞻基礎建設計畫通過、啟動年金改革</div></div>
+      <div class="tl"><div class="yr">2019</div><div class="ev">通過釋字 748 施行法，台灣成為<strong>亞洲第一個同婚合法化</strong>的國家</div></div>
+      <div class="tl"><div class="yr">2020</div><div class="ev">COVID-19「台灣模式」防疫與口罩外交受國際肯定</div></div>
+      <div class="tl"><div class="yr">2023</div><div class="ev">首艘國造潛艦<strong>海鯤號命名下水</strong>（9/28），潛艦國造邁出關鍵一步</div></div>
+      <div class="tl"><div class="yr">2024</div><div class="ev">賴清德就任第 16 任總統，民進黨連續執政逾 8 年；《最低工資法》施行；人均 GDP 達 33,983 美元</div></div>
+      <div class="tl"><div class="yr">2025</div><div class="ev">經濟成長概估達 <strong>8.63%</strong>（近 15 年新高），AI 出口爆發；推動健康台灣與國防特別預算</div></div>
+      <div class="tl"><div class="yr">2026</div><div class="ev">國防預算約 9,495 億元（GDP 3.32%）創新高；基本月薪調升至 29,500 元；人均 GDP 上看 4 萬美元</div></div>
+    </div>
+  </section>
+
+  <div class="note">
+    <strong>關於本頁：</strong>本頁以「政績整理」為目的，彙整民進黨執政期間（蔡英文、賴清德政府）的施政成果與官方／公開數據。各界對部分政策（例如實質薪資、居住正義、能源結構、兩岸關係與財政負擔等）仍有不同評價與討論，建議搭配多元資料來源與不同立場觀點綜合參考。部分最新數據為官方概估值，最終結果以主管機關正式公布為準。
+  </div>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <h4>資料來源</h4>
+    <div class="src">
+      <a href="https://www.dpp.org.tw/plan/contents/121" target="_blank" rel="noopener">民進黨：2025 政績總回顧</a>
+      <a href="https://zh.wikipedia.org/wiki/%E8%94%A1%E8%8B%B1%E6%96%87%E6%94%BF%E5%BA%9C" target="_blank" rel="noopener">維基百科：蔡英文政府</a>
+      <a href="https://zh.wikipedia.org/wiki/%E8%B3%B4%E6%B8%85%E5%BE%B7%E6%94%BF%E5%BA%9C" target="_blank" rel="noopener">維基百科：賴清德政府</a>
+      <a href="https://www.businesstoday.com.tw/article/category/183025/post/202511280034/" target="_blank" rel="noopener">今周刊：經濟成長率與人均 GDP</a>
+      <a href="https://tw.stock.yahoo.com/news/%E4%B8%BB%E8%A8%88%E7%B8%BD%E8%99%95%E5%85%AC%E5%B8%832025%E5%B9%B4gdp%E4%B8%8A%E4%BF%AE%E8%87%B3863-%E5%AF%AB%E8%BF%9115%E5%B9%B4%E4%BB%A5%E4%BE%86%E6%96%B0%E9%AB%98-083048704.html" target="_blank" rel="noopener">主計總處：2025 GDP 概估 8.63%</a>
+      <a href="https://www.money101.com.tw/blog/%E5%9F%BA%E6%9C%AC%E5%B7%A5%E8%B3%87-%E5%BA%95%E8%96%AA-%E8%AA%BF%E6%BC%B2-%E5%AF%A6%E9%A0%98%E8%96%AA%E6%B0%B4" target="_blank" rel="noopener">基本工資調漲歷史</a>
+      <a href="https://www.twreporter.org/a/taiwan-first-legalize-same-sex-marriage-asia-country" target="_blank" rel="noopener">報導者：同婚合法化亞洲第一</a>
+      <a href="https://zh.wikipedia.org/zh-tw/%E6%B5%B7%E9%AF%A4%E8%99%9F%E6%BD%9B%E8%89%87" target="_blank" rel="noopener">維基百科：海鯤號潛艦</a>
+      <a href="https://www.ey.gov.tw/Page/5A8A0CB5B41DA11E/1edab400-96b1-479d-919d-8ee14340fd26" target="_blank" rel="noopener">行政院：0-6 歲國家一起養 2.0</a>
+      <a href="https://rsprc.ntu.edu.tw/web/research/research_in.jsp?lang=tw&rp_id=RP1741944880461" target="_blank" rel="noopener">台大風險中心：2024 台灣能源情勢</a>
+      <a href="https://news.pts.org.tw/article/653306" target="_blank" rel="noopener">公視：國防預算與 GDP 占比</a>
+      <a href="https://www.cna.com.tw/news/aipl/202401135011.aspx" target="_blank" rel="noopener">中央社：2024 選舉結果</a>
+    </div>
+    <div class="disc">本頁由公開資料彙整製作，僅供參考與資訊整理用途，非官方文件，亦不代表特定政治立場。資料統計時間至 2026 年 6 月。</div>
+  </div>
+</footer>
+
+</body>
+</html>
